@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>Goudappel Default</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    
+    <!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet" />
+    
+    <!-- geocoder from mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+    
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script> 
+
+</head>
+
+<body onresize="hideInfopanel()">
+
+    <a id="logo" href="https://www.goudappel.nl" target="_blank"> 
+        <object data="GG_logo.svg" width="319px" height="69px"> </object> <!-- width="304px" height="69px" viewBox="0 0 304 69"-->
+    </a>
+    <div id="map" class="blured-map"class="animated" ></div>
+
+    <div class="menuPannel">
+        <a class="menuItem animated active" id="menu-1" href="#1" onclick="menuSelect(1)">Home</a>
+        <a class="menuItem animated" id="menu-2" href="#2" onclick="menuSelect(2)">Kaart</a>
+        <div class="indicator animated"></div>
+    </div>
+
+    <div class="content-pannel animated">
+        <H1 class="text">Hier komt de titel</H1>
+      <p class="text">Hier komt achtergrond informatie over het project. Dit is een placeholder default webpagina voor toekomstige DAT.mobility projecten. 
+          Design is geinspireerd uit het project: passende parkeernorm. De data die in mapbox is ingeladen is een oude verzie van toeristische locaties in Gelderland. 
+          Het doel van deze shapes is om een pop-up on click in te programeren.
+        </p>  <p class="text">
+          Aliquam pulvinar risus eu dignissim elementum. Nulla commodo quam pharetra, consectetur tellus a, feugiat velit. 
+          Sed placerat, lacus sed porta ultrices, massa elit tristique purus, non tempus tortor magna vitae velit. 
+          Pellentesque id nulla leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
+          Ut dictum et erat id convallis. Suspendisse a interdum leo. Morbi commodo varius dignissim. 
+          </p>
+        <div class="column1">
+            <div class="column2">
+                <ul class="list">
+                  <li>Coffee</li>
+                  <li>Tea</li>
+                  <li>Milk</li>
+                </ul>
+            </div>
+            <div class="column2">
+                <div class="table" >
+                  <table>
+                    <tr>
+                        <td>Maandag:</td>
+                        <td>9:00-17:00</td>
+                    </tr>
+                    <tr>
+                        <td>Dinsdag:</td>
+                        <td>9:00-17:00</td>
+                    </tr>
+                    <tr>
+                        <td>Woensdag:</td>
+                        <td>9:00-17:00</td>
+                    </tr>
+                    <tr>
+                        <td>Donderdag:</td>
+                        <td>9:00-17:00</td>
+                    </tr>
+                    <tr>
+                        <td>Vrijdag:</td>
+                        <td>9:00-17:00</td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    <script src="index.js"></script>
+    <script>
+      map.on('load', function () {
+      
+      // Add a layer showing the places.
+      
+
+      // When a click event occurs on a feature in the places layer, open a popup at the
+      // location of the feature, with description HTML from its properties.
+      map.on('click', 'toeristische-locaties', function (e) {
+          var id = e.features[0].properties.id;
+          var name = e.features[0].properties.name;
+          //console.log(e.features[0]);
+          var html = id + '. ' + name
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          //while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          //    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          //}
+
+          new mapboxgl.Popup()
+              .setLngLat(e.lngLat)
+              .setHTML(html)
+              .addTo(map);
+      });
+
+      // Change the cursor to a pointer when the mouse is over the places layer.
+      map.on('mouseenter', 'toeristische-locaties', function () {
+          map.getCanvas().style.cursor = 'pointer';
+      });
+
+      // Change it back to a pointer when it leaves.
+      map.on('mouseleave', 'toeristische-locaties', function () {
+          map.getCanvas().style.cursor = '';
+      });
+  });
+    </script>
+</body>
+
+</html>
