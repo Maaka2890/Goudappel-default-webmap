@@ -92,11 +92,13 @@
     <!-- Javascript -->
     <script src="index.js"></script>
     <script>
+
+    var hoveredStateId = null;
+
       map.on('load', function () {
       
       // Add a layer showing the places.
       
-
       // When a click event occurs on a feature in the places layer, open a popup at the
       // location of the feature, with description HTML from its properties.
       map.on('click', 'toeristische-locaties', function (e) {
@@ -126,7 +128,8 @@
       map.on('mouseleave', 'toeristische-locaties', function () {
           map.getCanvas().style.cursor = '';
       });
-  });
+    });
+    
     </script>
 </body>
 
